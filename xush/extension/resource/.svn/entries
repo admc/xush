@@ -1,34 +1,0 @@
-8
-
-dir
-296
-https://mozmill.googlecode.com/svn/trunk/mozmill/extension/resource
-https://mozmill.googlecode.com/svn
-
-
-
-2009-01-16T02:32:08.729924Z
-296
-mikeal.rogers
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-057c3009-7d4f-0410-8057-1fd5c760e54e
-
-stdlib
-dir
-
-modules
-dir
-
