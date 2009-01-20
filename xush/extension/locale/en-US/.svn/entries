@@ -1,0 +1,54 @@
+8
+
+dir
+296
+https://mozmill.googlecode.com/svn/trunk/mozmill/extension/locale/en-US
+https://mozmill.googlecode.com/svn
+
+
+
+2008-06-12T19:35:22.675173Z
+2
+mikeal.rogers
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+057c3009-7d4f-0410-8057-1fd5c760e54e
+
+overlay.dtd
+file
+
+
+
+
+2008-09-19T21:56:50.000000Z
+7d342f53b8dba201d5e71fdb83da1657
+2008-06-12T19:35:22.675173Z
+2
+mikeal.rogers
+has-props
+
+mozmill.dtd
+file
+
+
+
+
+2008-09-19T21:56:50.000000Z
+20e7941e312aa61bf0901d5d070054a6
+2008-06-12T19:35:22.675173Z
+2
+mikeal.rogers
+has-props
+

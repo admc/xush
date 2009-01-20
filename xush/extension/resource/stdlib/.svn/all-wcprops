@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/264/trunk/mozmill/extension/resource/stdlib
+END
+logging.js
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/184/trunk/mozmill/extension/resource/stdlib/logging.js
+END
+strings.js
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/183/trunk/mozmill/extension/resource/stdlib/strings.js
+END
+objects.js
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/217/trunk/mozmill/extension/resource/stdlib/objects.js
+END
+json2.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/264/trunk/mozmill/extension/resource/stdlib/json2.js
+END
+withs.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/134/trunk/mozmill/extension/resource/stdlib/withs.js
+END
+dom.js
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/183/trunk/mozmill/extension/resource/stdlib/dom.js
+END
+arrays.js
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/207/trunk/mozmill/extension/resource/stdlib/arrays.js
+END
+os.js
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/242/trunk/mozmill/extension/resource/stdlib/os.js
+END
+httpd.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/228/trunk/mozmill/extension/resource/stdlib/httpd.js
+END

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 28
+/svn/!svn/ver/288/trunk/test
+END
+test_googleIterator.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/179/trunk/test/test_googleIterator.js
+END
+test_jum.js
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/227/trunk/test/test_jum.js
+END
+first_sunbird_test.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/162/trunk/test/first_sunbird_test.js
+END
+elementLib-UnitTest.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/162/trunk/test/elementLib-UnitTest.js
+END
+test_prefs.js
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/288/trunk/test/test_prefs.js
+END
+test_focus.js
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/124/trunk/test/test_focus.js
+END
+test_assert.js
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/138/trunk/test/test_assert.js
+END
+first_thunderbird_test.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/162/trunk/test/first_thunderbird_test.js
+END
+test_demo.js
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/93/trunk/test/test_demo.js
+END
+test_diggIterator.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/179/trunk/test/test_diggIterator.js
+END

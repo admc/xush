@@ -1,0 +1,118 @@
+8
+
+dir
+296
+https://mozmill.googlecode.com/svn/trunk/mozmill/extension
+https://mozmill.googlecode.com/svn
+
+
+
+2009-01-16T02:32:08.729924Z
+296
+mikeal.rogers
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+057c3009-7d4f-0410-8057-1fd5c760e54e
+
+locale
+dir
+
+install.rdf
+file
+
+
+
+
+2009-01-14T00:02:06.000000Z
+81b1db74ac1fa5a099c28dcf8c47e256
+2009-01-09T21:47:53.308516Z
+279
+cmtalbert
+has-props
+
+chrome.manifest
+file
+
+
+
+
+2009-01-08T20:47:24.000000Z
+c8969037d7ddea2922694261bd32106b
+2009-01-07T20:17:59.071726Z
+260
+mikeal.rogers
+has-props
+
+skin
+dir
+
+resource
+dir
+
+defaults
+dir
+
+content
+dir
+
+readme.txt
+file
+
+
+
+
+2008-09-19T21:56:53.000000Z
+9fb31be9cc9d9efc261898fc823d7000
+2008-06-12T19:35:22.675173Z
+2
+mikeal.rogers
+has-props
+
+chrome-jar.manifest
+file
+
+
+
+
+2009-01-14T00:02:06.000000Z
+b1755642c0d724832bd410c0667c26a9
+2009-01-09T19:00:32.146162Z
+274
+cmtalbert
+
+zipexclude.lst
+file
+
+
+
+
+2009-01-14T00:02:06.000000Z
+56a943f30fb878e5fc66f3ed7e182f74
+2009-01-09T22:18:19.896636Z
+280
+mikeal.rogers
+
+build.xml
+file
+
+
+
+
+2009-01-14T00:02:06.000000Z
+7f5e1a666110efbcaee50d1f5fcf31d3
+2009-01-09T19:00:32.146162Z
+274
+cmtalbert
+
