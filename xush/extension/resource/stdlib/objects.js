@@ -35,7 +35,7 @@
 // 
 // ***** END LICENSE BLOCK *****
 
-var EXPORTED_SYMBOLS = ['getLength', ];//'compare'];
+var EXPORTED_SYMBOLS = ['getLength'];//'compare'];
 
 var getLength = function (obj) {
   var len = 0;
@@ -45,9 +45,9 @@ var getLength = function (obj) {
   return len;
 }
 
-var logging = {}; Components.utils.import('resource://mozmill/stdlib/logging.js', logging);
-
-var objectsLogger = logging.getLogger('objectsLogger');
+// var logging = {}; Components.utils.import('resource://xush/stdlib/logging.js', logging);
+// 
+// var objectsLogger = logging.getLogger('objectsLogger');
 
 // var compare = function (obj1, obj2, depth, recursion) {
 //   if (depth == undefined) {

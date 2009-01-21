@@ -1,4 +1,4 @@
-var logic = {}; Components.utils.import('resource://XUSH/modules/logic.js', logic);
+var logic = {}; Components.utils.import('resource://xush/modules/logic.js', logic);
 
 var XUSH = {
   onLoad: function() {
@@ -16,7 +16,7 @@ var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 while(enumerator.hasMoreElements()) {
   var win = enumerator.getNext();
   win.documentLoaded = true;
-  win.addEventListener("keypress", logic.okp, false);
+  win.addEventListener("keypress", logic.okp, true);
 }
 
 //when a new dom window gets opened
@@ -25,7 +25,7 @@ var observer = {
    
    subject.addEventListener("load", function(event) {
      subject.documentLoaded = true;
-     subject.addEventListener("keypress", logic.okp, false);
+     subject.addEventListener("keypress", logic.okp, true);
    }, false);
  }
 };

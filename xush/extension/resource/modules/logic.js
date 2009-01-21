@@ -1,5 +1,8 @@
 var EXPORTED_SYMBOLS = ['okp'];
 
+var elementslib = {}; Components.utils.import('resource://xush/modules/elementslib.js', elementslib);
+var strings = {}; Components.utils.import('resource://xush/stdlib/strings.js', strings);
+
 var that = this;
 
 logic = {};
@@ -21,8 +24,13 @@ var dir = function(obj){
 var okp = function(event){
   if ((event.charCode == 83) && (event.metaKey) && (event.shiftKey)) {
     logic.build(event);
+    logic.getWindows();
+    that.window = logic.gmr().content;
+    that.document = logic.gmr().content.document;
   }
-  if (event.keyCode == 13){
+  if ((event.keyCode == 13) && (event.shiftKey == false)){
+    event.stopPropagation();
+    event.preventDefault();
     logic.enter(event);
   }
 }    
@@ -39,9 +47,37 @@ logic.jin = function(){
   return this.gmr().content.document.getElementById('XUSHInput');
 }
 
+logic.jo = function(){
+  return this.gmr().content.document.getElementById('XUSHOverlay');
+}
+
+logic.sendCmd = function(s){
+  this.jout().insertBefore(this.entry('<font color="white"><b>'+s+'</b></font>'), this.jout().childNodes[0]);
+}
+
 //send output to console
 logic.send = function(s){
+  if (s == undefined){
+    return;
+  }
   this.jout().insertBefore(this.entry('> '+s), this.jout().childNodes[0]);
+}
+
+logic.getWindows = function(){
+   var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                    .getService(Components.interfaces.nsIWindowMediator)
+                    .getEnumerator("");
+    var s = "";
+    //define an array we can access
+    that.windows = [];
+    var c = 1;
+    while(enumerator.hasMoreElements()) {
+      var win = enumerator.getNext();
+      that.windows.push(win);
+      s += c+'. '+win.document.documentElement.getAttribute('windowtype') + ': ' + win.title +'<br>';
+      c++;
+    }
+    return s;
 }
 
 //logic to handle each of the command inputs
@@ -55,23 +91,15 @@ logic.handle = function(cmd){
   case 'clear':
     this.jout().innerHTML = "";
     break;
-
+  
+  case 'exit':
+    this.jo().style.display = "none";
+    break
+     
   //show me all the windows  
   case 'windows':
-    var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                    .getService(Components.interfaces.nsIWindowMediator)
-                    .getEnumerator("");
-    var s = "";
-    //define an array we can access
-    that.windows = [];
-    var c = 1;
-    while(enumerator.hasMoreElements()) {
-      var win = enumerator.getNext();
-      that.windows.push(win);
-      s += c+'. '+win.document.documentElement.getAttribute('windowtype') + ': ' + win.title +'<br>';
-      c++;
-    }
-    this.send(s);
+    this.send(this.getWindows());
+    this.sendCmd(cmd);
     break;
     
   //dir
@@ -92,6 +120,7 @@ logic.handle = function(cmd){
         this.send('> ' + prop);
       }
     }
+    this.sendCmd(cmd);
     break;
     
   //help case
@@ -99,14 +128,18 @@ logic.handle = function(cmd){
     var opts = [];
     opts.push('-- XUSH Help! --')
     opts.push(' dir -- default shows you the current scope, \'dir obj\' or \'dir(obj)\' will show you the properties of the object.');
+    opts.push(' window -- reference to current content window.');
     opts.push(' windows -- show you all the open in the browser.');
+    opts.push(' windows[x] -- access the window object of your choice');
+    opts.push(' elementslib -- bag of fun tricks for doing element lookups in the browser.');
     opts.push(' clear -- reset the output.');
-
+    
     this.send('');
     while(opts.length != 0){
       this.send(opts.pop());
     }
     this.send('');
+    this.sendCmd(cmd);
     break;
   
   //defaut is to eval
@@ -118,7 +151,11 @@ logic.handle = function(cmd){
      catch(err){
        this.send('<font color="red">'+err+'</font>');
      }
+     this.sendCmd(cmd);
   }
+  
+  this.jin().value = "";
+  this.jin().focus();
 }
 
 //generate a new output entry node
@@ -136,13 +173,15 @@ logic.entry = function(val){
 //when the user presses enter
 logic.enter = function(event) {
   var inp = this.gmr().content.document.getElementById('XUSHInput');
+  inp.value = strings.trim(inp.value);
   //ignore empty returns
-  if (inp.value == ""){
+  if ((inp.value == "") || (inp.value == " ")){
     return;
   }
   //if we have less than histLength
   if (this.hist.length < this.histLength){
     this.hist.unshift(inp.value);
+    this.histPos = this.hist.length -1;
   }
   else {
     this.hist.pop();
@@ -150,7 +189,6 @@ logic.enter = function(event) {
   }
   //pass input commands to the handler
   this.handle(inp.value);
-  inp.value = "";
 };
 
 //build the whole ui             
@@ -174,11 +212,13 @@ logic.build = function(event) {
         d.style.display = "block";
         d.addEventListener("keydown", function(event){ i.focus(); }, false);
                    
-      var i = this.gmr().content.document.createElement('input');
+      var i = this.gmr().content.document.createElement('textarea');
         //i.size = "50";
         i.id = "XUSHInput";
         i.value = "What's on your mind?";
         i.style.width = "90%";
+        i.cols = "32";
+        i.rows = "8";
         i.style.left = "0px";
         i.style.top = "2%";
         i.style.left = "20px";
@@ -194,7 +234,7 @@ logic.build = function(event) {
           //if there is a command history
           if (logic.hist.length != 0){
             //uparrow
-            if ((event.keyCode == 38) && (event.charCode == 0)){
+            if ((event.keyCode == 38) && (event.charCode == 0) && (event.shiftKey == true)){
               if (logic.histPos == logic.hist.length -1){
                 logic.histPos = 0;
               } else {
@@ -203,7 +243,7 @@ logic.build = function(event) {
               logic.jin().value = logic.hist[logic.histPos];
             }
             //downarrow
-            if ((event.keyCode == 40) && (event.charCode == 0)){
+            if ((event.keyCode == 40) && (event.charCode == 0) && (event.shiftKey == true)){
               if (logic.histPos == 0){
                 logic.histPos = logic.hist.length -1;
               } else {
@@ -221,7 +261,7 @@ logic.build = function(event) {
         o.style.width = "90%";
         o.style.height = "80%";
         o.style.left = "0px";
-        o.style.top = "8%";
+        o.style.top = "15%";
         o.style.left = "20px";
         o.style.position = "absolute";
         o.style.background = "black";
@@ -232,11 +272,8 @@ logic.build = function(event) {
         o.addEventListener("keydown", function(event){ i.focus(); }, false);
         
       d.appendChild(o);   
-    
       this.gmr().content.document.body.appendChild(d);
-      
-      //set focus
-      this.gmr().content.document.getElementById('XUSHInput').focus();
+      this.gmr().content.document.getElementById('XUSHInput').focus();      
   }
   //toggle it
   else {

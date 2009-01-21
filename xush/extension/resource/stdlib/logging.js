@@ -40,7 +40,7 @@ var EXPORTED_SYMBOLS = ['Logger', 'getLogger'];
 function Logger (name) {
   this._name = name;
   this._all = [];
-  this.frame = {}; Components.utils.import('resource://mozmill/modules/frame.js', this.frame);
+  this.frame = {}; Components.utils.import('resource://xush/modules/frame.js', this.frame);
 }
 Logger.prototype.log = function (level, message) {
   var x = {"level":level, "message":message};
