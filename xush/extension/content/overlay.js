@@ -16,7 +16,7 @@ var enumerator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 while(enumerator.hasMoreElements()) {
   var win = enumerator.getNext();
   win.documentLoaded = true;
-  win.addEventListener("keypress", logic.okp, true);
+  win.addEventListener("keypress", logic.okp, false);
 }
 
 //when a new dom window gets opened
@@ -25,7 +25,7 @@ var observer = {
    
    subject.addEventListener("load", function(event) {
      subject.documentLoaded = true;
-     subject.addEventListener("keypress", logic.okp, true);
+     subject.addEventListener("keypress", logic.okp, false);
    }, false);
  }
 };

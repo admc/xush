@@ -1,6 +1,7 @@
 var EXPORTED_SYMBOLS = ['okp'];
 
 var elementslib = {}; Components.utils.import('resource://xush/modules/elementslib.js', elementslib);
+var controller = {}; Components.utils.import('resource://xush/modules/controller.js', controller);
 var strings = {}; Components.utils.import('resource://xush/stdlib/strings.js', strings);
 
 var that = this;
@@ -17,26 +18,27 @@ logic.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 //making dir also work as a function call
 var dir = function(obj){
   for (prop in obj){
-     logic.send('> ' + prop);
+     logic.send(prop);
    }
 }
 //onkeypress events attached to the UI
 var okp = function(event){
+  that.window = logic.gmr().content;
+  that.document = logic.gmr().content.document;
+  
   if ((event.charCode == 83) && (event.metaKey) && (event.shiftKey)) {
     logic.build(event);
     logic.getWindows();
-    that.window = logic.gmr().content;
-    that.document = logic.gmr().content.document;
   }
   if ((event.keyCode == 13) && (event.shiftKey == false)){
-    event.stopPropagation();
+    //event.stopPropagation();
     event.preventDefault();
     logic.enter(event);
   }
 }    
 
 logic.gmr = function(){
-  return this.wm.getMostRecentWindow('');
+  return this.wm.getMostRecentWindow('navigator:browser');
 }
 //get a reference to the output console
 logic.jout = function(){
@@ -52,7 +54,8 @@ logic.jo = function(){
 }
 
 logic.sendCmd = function(s){
-  this.jout().insertBefore(this.entry('<font color="white"><b>'+s+'</b></font>'), this.jout().childNodes[0]);
+  this.jout().insertBefore(this.entry('<font color="tan">xush%</font> <font color="white">'+s+'</font>'), this.jout().childNodes[0]);
+  //this.jout().insertBefore(this.entry('<br>'), this.jout().childNodes[0]);
 }
 
 //send output to console
@@ -60,7 +63,7 @@ logic.send = function(s){
   if (s == undefined){
     return;
   }
-  this.jout().insertBefore(this.entry('> '+s), this.jout().childNodes[0]);
+  this.jout().insertBefore(this.entry('&nbsp;&nbsp;'+s), this.jout().childNodes[0]);
 }
 
 logic.getWindows = function(){
@@ -74,10 +77,8 @@ logic.getWindows = function(){
     while(enumerator.hasMoreElements()) {
       var win = enumerator.getNext();
       that.windows.push(win);
-      s += c+'. '+win.document.documentElement.getAttribute('windowtype') + ': ' + win.title +'<br>';
       c++;
     }
-    return s;
 }
 
 //logic to handle each of the command inputs
@@ -98,7 +99,10 @@ logic.handle = function(cmd){
      
   //show me all the windows  
   case 'windows':
-    this.send(this.getWindows());
+    this.getWindows();
+    for (win in that.windows){
+      this.send( win+'. '+that.windows[win].document.documentElement.getAttribute('windowtype') + ': ' + that.windows[win].title); 
+    }
     this.sendCmd(cmd);
     break;
     
@@ -109,7 +113,7 @@ logic.handle = function(cmd){
       try {
         var arg = eval(cmdArr[1]);
         for (prop in arg){
-          this.send('> ' + prop);
+          this.send(prop);
         }
       } catch(err){
         this.send('<font color="red">'+err+'</font>');
@@ -117,7 +121,7 @@ logic.handle = function(cmd){
     }
     else {
       for (prop in that){
-        this.send('> ' + prop);
+        this.send(prop);
       }
     }
     this.sendCmd(cmd);
@@ -126,19 +130,17 @@ logic.handle = function(cmd){
   //help case
   case 'help':
     var opts = [];
-    opts.push('-- XUSH Help! --')
-    opts.push(' dir -- default shows you the current scope, \'dir obj\' or \'dir(obj)\' will show you the properties of the object.');
-    opts.push(' window -- reference to current content window.');
-    opts.push(' windows -- show you all the open in the browser.');
-    opts.push(' windows[x] -- access the window object of your choice');
-    opts.push(' elementslib -- bag of fun tricks for doing element lookups in the browser.');
-    opts.push(' clear -- reset the output.');
+    opts.push('<b>XUSH Help!<b>')
+    opts.push('dir -- default shows you the current scope, \'dir obj\' or \'dir(obj)\' will show you the properties of the object.');
+    opts.push('window -- reference to current content window.');
+    opts.push('windows -- show you all the open in the browser.');
+    opts.push('windows[x] -- access the window object of your choice');
+    opts.push('elementslib -- bag of fun tricks for doing element lookups in the browser.');
+    opts.push('clear -- reset the output.');
     
-    this.send('');
     while(opts.length != 0){
       this.send(opts.pop());
     }
-    this.send('');
     this.sendCmd(cmd);
     break;
   
