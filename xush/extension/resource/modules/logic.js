@@ -22,7 +22,7 @@ var dir = function(obj){
 }
 //onkeypress events attached to the UI
 var okp = function(event){
-  if ((event.charCode == 83) && (event.metaKey) && (event.shiftKey)) {
+  if ((event.charCode == 83) && (event.altKey) && (event.shiftKey)) {
     logic.build(event);
     logic.getWindows();
     that.window = logic.gmr().content;
