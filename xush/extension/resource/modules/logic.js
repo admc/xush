@@ -80,9 +80,10 @@ var okp = function(event){
     logic.getWindows();
   }
   if ((event.keyCode == 13) && (event.shiftKey == false)){
-    //event.stopPropagation();
-    event.preventDefault();
-    logic.enter(event);
+     if (event.target.id == "XUSHInput"){
+       event.preventDefault();
+       logic.enter(event); 
+     }
   }
 }    
 
@@ -201,6 +202,7 @@ logic.handle = function(cmd){
      }
      catch(err){
        this.send('<font color="red">'+err+'</font>');
+       throw err;
      }
      this.sendCmd(cmd);
   }
