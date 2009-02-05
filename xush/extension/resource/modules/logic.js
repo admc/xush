@@ -46,7 +46,7 @@ var that = this;
 logic = {};
 logic.hist = [];
 logic.histPos = 0;
-logic.histLength = 20;
+//logic.histLength = 20;
 
 logic.wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
            .getService(Components.interfaces.nsIWindowMediator);
@@ -198,7 +198,10 @@ logic.handle = function(cmd){
   default:
      try {
        var res = eval.call(that, cmd);
-       this.send(res);
+       if ((cmd.indexOf('=') == -1) && (res == null)){
+         this.send(cmd + ' is null.')
+       }
+       else { this.send(res); }
      }
      catch(err){
        this.send('<font color="red">'+err+'</font>');
@@ -232,15 +235,15 @@ logic.enter = function(event) {
     return;
   }
   //if we have less than histLength
-  if (this.hist.length < this.histLength){
+  //if (this.hist.length < this.histLength){
     this.hist.unshift(inp.value);
     this.histPos = this.hist.length -1;
-  }
-  else {
-    this.hist.pop();
-    this.hist.unshift(inp.value);
-  }
-  //pass input commands to the handler
+  // }
+  //   else {
+  //     this.hist.pop();
+  //     this.hist.unshift(inp.value);
+  //   }
+    //pass input commands to the handler
   this.handle(inp.value);
 };
 
